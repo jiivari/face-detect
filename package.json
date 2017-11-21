@@ -1,0 +1,21 @@
+{
+  "name": "face-detect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js",
+    "start": "node index.js",
+    "build": "echo building"
+  },
+  "author": "Jani Iivari <jani.iivari@digia.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "fs": "0.0.1-security",
+    "node-json2html": "^1.1.1",
+    "querystring": "^0.2.0",
+    "request": "^2.83.0"
+  }
+}

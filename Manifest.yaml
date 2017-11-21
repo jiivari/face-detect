@@ -1,0 +1,7 @@
+---
+applications:
+- name: face-detect
+  disk: 1024M
+  memory: 1024M
+  path: .
+  random-route: true

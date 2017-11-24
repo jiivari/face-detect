@@ -4,11 +4,7 @@
 <head>
   <title>Face-detect</title>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-  <style type="text/css" style="background-image:url(http://www.digia.com/globalassets/yritys/logo/digia_logo_rgb.png)">
-    #login,
-    #loggedin {
-      display: none;
-    }
+  <style type="text/css">
 
     .text-overflow {
       overflow: hidden;
@@ -28,14 +24,15 @@
 
 <body>
   <div class="container">
-    <div id="login">
+    <!-- <div id="login">
       <a href="http://www.digia.com"><img class="media-object" width="150" src="http://www.digia.com/globalassets/yritys/logo/digia_logo_cmyk.png" /></a></a>
       <h1>Detect Face</h1>
-    </div>
+    </div> -->
     <div id="container">
       <video id="v" autoplay="true" id="videoElement">
-          </video><br>
-      <!-- <canvas id="c" style="display:none;" width="300" height="300"></canvas> -->
+      </video><br>
+      <button id="takepic">Take a picture</button><br><br>
+      <button id="b">Request Authorization</button><br><br>
       <div class="input-field col s12">
         <textarea id="result" class="materialize-textarea" rows="10" cols="100" name="profile" maxlength="5000" style="border: 2px solid purple;border-radius: 8px;"></textarea>
       </div>
@@ -52,35 +49,83 @@
         canvas;
 
       function speak_aino(speechtext) {
-  			// meSpeak.speak calls the pause3D as callback when finished
-  			responsiveVoice.speak(speechtext, "UK English Female", {rate: 1});
-  		}
+        // meSpeak.speak calls the pause3D as callback when finished
+        responsiveVoice.speak(speechtext, "UK English Female", {
+          rate: 1
+        });
+      }
 
-      /**
-       *  generates a still frame image from the stream in the <video>
-       *  appends the image to the <body>
-       */
-       // function DetectFace() {
-       //
-       //   var button = document.getElementById("b");
-       //   button.disabled = false;
-       //   button.onclick = function() {
-       //
-       //     var xhttp = new XMLHttpRequest();
-       //     xhttp.onreadystatechange = function() {
-       //       if (this.readyState == 4 && this.status == 200) {
-       //         document.getElementById("demo").innerHTML = this.responseText;
-       //       }
-       //     };
-       //     xhttp.open("POST", "/api/detectface", true);
-       //     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-       //     var encodedString = img;
-       //     var test = "image_src=" + encodedString;
-       //     xhttp.send(test);
-       //
-       //   };
-       // }
+      var button = document.getElementById("b");
+      button.disabled = true;
+
+      button.onclick = function() {
+        button2.disabled = false;
+        requestauth();
+        button.disabled = true;
+      }
+
+      var button2 = document.getElementById("takepic");
+      button2.disabled = false;
+
+      button2.onclick = function() {
+        button.disabled = false;
+        takepicture();
+      }
+
+      function takepicture() {
+        speak_aino('Identifying person, please wait');
+        document.getElementById("result").innerHTML = 'Identifying person, please wait'
+        var img = document.querySelector('img') || document.createElement('img');
+        var context;
+        var width = video.offsetWidth,
+          height = video.offsetHeight;
+
+        canvas = canvas || document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+
+        context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, width, height);
+
+        img.src = canvas.toDataURL('image/png');
+
+        document.getElementById("result").innerHTML = 'Capturing';
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("result").innerHTML = this.responseText;
+            document.getElementById("result").style.display = "block"
+            speak_aino(this.responseText);
+
+          }
+        };
+        xhttp.open("POST", "/api/savepic", true);
+        xhttp.setRequestHeader("Content-type", "application/base64");
+        var test = "image_src=" + img.src;
+        xhttp.send(img.src);
+      }
+
+      function requestauth() {
+        document.getElementById("result").innerHTML = 'sending data';
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("result").innerHTML = this.responseText;
+            document.getElementById("result").style.display = "block"
+            speak_aino(this.responseText);
+            setTimeout(function() { document.getElementById("result").innerHTML = 'cleared'; }, 5000);
+          } else if (this.readyState == 4 && this.status != 200) {
+            document.getElementById("result").innerHTML = this.status + ' ' + this.responseText;
+          }
+        };
+        xhttp.open("GET", "/api/getauth", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send();
+
+      }
       function takeSnapshot() {
+        speak_aino('Identifying person, please wait');
+        document.getElementById("result").innerHTML = 'Identifying person, please wait'
         var img = document.querySelector('img') || document.createElement('img');
         var context;
         var width = video.offsetWidth,
@@ -96,19 +141,22 @@
         img.src = canvas.toDataURL('image/png');
         // document.getElementById('c').innerHTML = img;
         // document.body.appendChild(img);
-
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("result").innerHTML = this.responseText;
-            document.getElementById("result").style.display = "block"
-            speak_aino(this.responseText);
-          }
-        };
-        xhttp.open("POST", "/api/identifyperson", true);
-        xhttp.setRequestHeader("Content-type", "application/base64");
-        var test = "image_src=" + img.src;
-        xhttp.send(img.src);
+        setTimeout(function() {
+          document.getElementById("result").innerHTML = 'sending data';
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById("result").innerHTML = this.responseText;
+              document.getElementById("result").style.display = "block"
+              speak_aino(this.responseText);
+              setTimeout(function() { document.getElementById("result").innerHTML = 'cleared'; }, 5000);
+            }
+          };
+          xhttp.open("POST", "/api/identifyperson", true);
+          xhttp.setRequestHeader("Content-type", "application/base64");
+          var test = "image_src=" + img.src;
+          xhttp.send(img.src);
+        }, 2000);
 
       }
 
@@ -122,15 +170,13 @@
           // permission granted:
           .then(function(stream) {
             video.src = window.URL.createObjectURL(stream);
-            video.addEventListener('click', takeSnapshot);
+            // video.addEventListener('click', takeSnapshot);
           })
           // permission denied:
           .catch(function(error) {
             document.body.textContent = 'Could not access the camera. Error: ' + error.name;
           });
       }
-
-
 
     })();
 

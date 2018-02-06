@@ -1,0 +1,412 @@
+{
+	"info": {
+		"name": "Azure North Europe",
+		"_postman_id": "c3e92813-f020-3715-d372-247127456d16",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Create Person Group",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "[REPLACETHIS]"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"[YOUR GROUP]\",\r\n    \"userData\":\"[YOUR GROUP NAME]\"\r\n}"
+				},
+				"url": {
+					"raw": "https://northeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/[YOUR GROUP]",
+					"protocol": "https",
+					"host": [
+						"northeurope",
+						"api",
+						"cognitive",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"[YOUR GROUP]"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "2. Create Person",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "[REPLACETHIS]"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"[YOUR NAME]\",\r\n    \"userData\":\"[YOUR MESSAGE]\"\r\n}"
+				},
+				"url": {
+					"raw": "https://northeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/[YOUR GROUP]/persons",
+					"protocol": "https",
+					"host": [
+						"northeurope",
+						"api",
+						"cognitive",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"[YOUR GROUP]",
+						"persons"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "3. Get Person",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "[REPLACETHIS]"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://northeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/[YOUR GROUP]/persons/[PERSONID]]",
+					"protocol": "https",
+					"host": [
+						"northeurope",
+						"api",
+						"cognitive",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"[YOUR GROUP]",
+						"persons",
+						"[PERSONID]"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "4. Create Person Face",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "[REPLACETHIS]"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/octet-stream"
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": ""
+					}
+				},
+				"url": {
+					"raw": "https://northeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/[YOUR GROUP]/persons/[PERSONID]/persistedFaces",
+					"protocol": "https",
+					"host": [
+						"northeurope",
+						"api",
+						"cognitive",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"[YOUR GROUP]",
+						"persons",
+						"[PERSONID]",
+						"persistedFaces"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "5. Get Person Group Training Status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "[REPLACETHIS]"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://northeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/[YOUR GROUP]/training",
+					"protocol": "https",
+					"host": [
+						"northeurope",
+						"api",
+						"cognitive",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"[YOUR GROUP]",
+						"training"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "6. Train Person Group",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "[REPLACETHIS]"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://northeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/[YOUR GROUP]/train",
+					"protocol": "https",
+					"host": [
+						"northeurope",
+						"api",
+						"cognitive",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"[YOUR GROUP]",
+						"train"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "7. Get Group Persons",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "[REPLACETHIS]"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/octet-stream"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://northeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/[YOUR GROUP]/persons?top=1000",
+					"protocol": "https",
+					"host": [
+						"northeurope",
+						"api",
+						"cognitive",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"[YOUR GROUP]",
+						"persons"
+					],
+					"query": [
+						{
+							"key": "top",
+							"value": "1000",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "8. Patch Person",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "[REPLACETHIS]"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"[YOUR NAME]\",\r\n     \"userData\": \"[YOUR TEXT]\"\r\n}"
+				},
+				"url": {
+					"raw": "https://northeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/[YOUR GROUP]/persons/[PERSONID]",
+					"protocol": "https",
+					"host": [
+						"northeurope",
+						"api",
+						"cognitive",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"persongroups",
+						"[YOUR GROUP]",
+						"persons",
+						"[PERSONID]"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "9. Detect Face",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "[REPLACETHIS]"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/octet-stream"
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": ""
+					}
+				},
+				"url": {
+					"raw": "https://northeurope.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=false",
+					"protocol": "https",
+					"host": [
+						"northeurope",
+						"api",
+						"cognitive",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"detect"
+					],
+					"query": [
+						{
+							"key": "returnFaceId",
+							"value": "true",
+							"equals": true
+						},
+						{
+							"key": "returnFaceLandmarks",
+							"value": "false",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "10. Identify",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "[REPLACETHIS]"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"personGroupId\": \"[YOUR GROUP]\",\r\n  \"faceIds\": [\r\n    \"[FACEID]\"\r\n  ],\r\n  \"maxNumOfCandidatesReturned\": 1,\r\n  \"confidenceThreshold\": 0.5\r\n}"
+				},
+				"url": {
+					"raw": "https://northeurope.api.cognitive.microsoft.com/face/v1.0/identify",
+					"protocol": "https",
+					"host": [
+						"northeurope",
+						"api",
+						"cognitive",
+						"microsoft",
+						"com"
+					],
+					"path": [
+						"face",
+						"v1.0",
+						"identify"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

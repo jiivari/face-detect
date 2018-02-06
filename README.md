@@ -29,7 +29,9 @@ Browse http://localhost:3000
 
 
 # Face-detect setup
-´´´See folder Postman for template´´´
+´´´
+See folder Postman for template
+´´´
 
 1. Create Person Group
     PUT https://northeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/[YOUR GROUP]
